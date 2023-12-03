@@ -1,5 +1,4 @@
-#a 6:09 - 06:33
-#b 6:33 - 
+
 
 
 with open('./input.txt') as the_file:

@@ -1,5 +1,4 @@
-#6:35 - 6:45
-#8:53-
+
 
 
 num_dict = {'one': 1, 
@@ -34,19 +33,22 @@ with open('./input.txt') as the_file:
                 continue
 
         for key in num_dict.keys():
-            string_num1 = line.find(key, 0, index_)
+            string_num1 = line.find(key, )
             if string_num1 == -1:
                 continue
+
             elif string_num1 < index_min:
                 index_min = string_num1
+                number_min = num_dict[key]
                 
             else: 
                 continue
+        print(index_min, number_min)
 
         if index_min < index_value1:
-            value1_out = index_min
-        elif index_min > index_value1:
-            value1_out = index_value1
+            value1_out = number_min
+        elif index_min >= index_value1:
+            value1_out = value1
 
         print('value1_out', value1_out)
 
@@ -56,22 +58,24 @@ with open('./input.txt') as the_file:
                 int_element = int(element)
                 value2 = int_element
                 print((len(line)-index_-1), value2)
-                index_value2 = index_
+                index_value2 = len(line)-index_-1
                 break
             except:
                 continue
         for key in num_dict.keys():
-            string_num2 = line.find(key, 0, index_)
+            string_num2 = line.rfind(key,)
             if string_num2 == -1:
                 continue
             elif string_num2 > index_max:
-                index_max = string_num2 + len(key) #trouve la fin du mot
+                index_max = string_num2  #trouve la fin du mot
+                number_max = num_dict[key]
             else: 
                 continue
+        print(index_max, number_max)
 
-        if index_max > value2:
-            value2_out = index_max
-        elif index_max > value2:
+        if index_max > index_value2:
+            value2_out = number_max
+        elif index_max <= index_value2:
             value2_out = value2
 
         current_value = value1_out * 10 + value2_out
