@@ -40,22 +40,19 @@ for key in output.keys():
 			card_winnings += 1
 
 
-	points += card_winnings * win_factor[0]
-	print(card_winnings,)
-	print(win_factor)
+	points += win_factor[0]
+	print(f"points added: {win_factor[0]} = {card_winnings * win_factor[0]} ({points})")
+	
+	# print(win_factor[0])
 	this_win_factor = win_factor.pop(0)
 	win_factor.append(1)
-
-
-	# if len(win_factor) < card_winnings:
-	# 	win_factor = win_factor + ([0] * (card_winnings - len(win_factor)))
-
-
+	print(win_factor)
 	for i in range(card_winnings):
 
 		# print(this_win_factor)
 		win_factor[i] += 1 * this_win_factor
 	print(win_factor)
+	
 
 
 	
