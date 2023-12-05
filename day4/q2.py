@@ -2,7 +2,7 @@
 
 
 output = {}
-with open('./input.txt') as the_file:
+with open('./test_input.txt') as the_file:
 	input_lines = the_file.readlines()
 	for line in input_lines:
 		card_and_winning, numbers = line.split('|')
@@ -28,8 +28,8 @@ with open('./input.txt') as the_file:
 		print(card_number, winning_numbers_filtered, numbers_filtered,)
 
 
-points = 0
-win_factor = [1] * 10 #* (len(output.keys())+1)
+total_cards = 0
+card_quantity = [1] * 10 #* (len(output.keys())+1)
 for key in output.keys():
 	print()
 	print(key)
@@ -39,27 +39,23 @@ for key in output.keys():
 		if number in output[key]['winning']:
 			card_winnings += 1
 
+	total_cards += card_quantity[0]
 
-	points += win_factor[0]
-	print(f"points added: {win_factor[0]} = {card_winnings * win_factor[0]} ({points})")
+	print(f"points added: win factor: {card_quantity[0]}  card_win: {card_winnings} ({total_cards})")
 	
-	# print(win_factor[0])
-	this_win_factor = win_factor.pop(0)
-	win_factor.append(1)
-	print(win_factor)
+	# print(card_quantity[0])
+	this_win_factor = card_quantity.pop(0)
+	card_quantity.append(1)
+	print(card_quantity)
 	for i in range(card_winnings):
 
 		# print(this_win_factor)
-		win_factor[i] += 1 * this_win_factor
-	print(win_factor)
-	
-
-
-	
+		card_quantity[i] += this_win_factor
+	print(card_quantity)
 	
 
 
 
-print(points)
+print(total_cards)
 
 
