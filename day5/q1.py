@@ -33,19 +33,28 @@ with open("./test_input.txt") as the_file:
 
 print(output_dict)
 
-
+out_step1 = []
 for seed in seeds:
-    print('seed:', seed)
+    int_seed = int(seed)
+
+    print('seed:', int_seed)
     closest = 0
     # Step 1, search the closest match that is lower
     for step1 in output_dict['seed-to-soil'].keys():
-        if step1 <= seed and step1 < closest:
+        if step1 <= int_seed and step1 < closest:
             closest = step1
 
     # Step 2, check that the step actually contains the value
     
     source, result, extend = output_dict['seed-to-soil'][step1]
-    
+    if source < int_seed and (source + extend - 1) > int_seed:
+        out1 = (int_seed - source) + (extend - 1)
+
+    else:
+        out1 = seed
+    out_step1.append(step1)
+
+print(out_step1)
 
 
 
