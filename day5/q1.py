@@ -1,11 +1,17 @@
 
 # Extract the data
+from collections import OrderedDict
 
+output_dict = OrderedDict()
+# output_dict['seeds'] = []
+output_dict['seed-to-soil'] = {}
+output_dict['soil-to-fertilizer'] = {}
+output_dict['fertilizer-to-water'] = {}
+output_dict['water-to-light'] = {}
+output_dict['light-to-temperature'] = {}
+output_dict['temperature-to-humidity'] = {}
+output_dict['humidity-to-location'] = {}
 
-output_dict = {'seeds': [], 'seed-to-soil': {}, 'soil-to-fertilizer': {},
-          'fertilizer-to-water': {}, 'water-to-light': {}, 
-          'light-to-temperature': {}, 'temperature-to-humidity': {},
-          'humidity-to-location': {}, }
 current_title = None
 with open("./test_input.txt") as the_file:
     input_lines = the_file.readlines()
@@ -32,29 +38,49 @@ with open("./test_input.txt") as the_file:
 
 
 print(output_dict)
+print()
 
-out_step1 = []
-for seed in seeds:
-    int_seed = int(seed)
+out_step1 = OrderedDict()
+for i, seed in enumerate(seeds):
+    seed = int(seed)
+    if i == 0:
+        last_seed = seed
 
-    print('seed:', int_seed)
-    closest = 0
-    # Step 1, search the closest match that is lower
-    for step1 in output_dict['seed-to-soil'].keys():
-        if step1 <= int_seed and step1 < closest:
-            closest = step1
+    last_seed = int(last_seed)
 
-    # Step 2, check that the step actually contains the value
+
+    print('seed:', last_seed)
     
-    source, result, extend = output_dict['seed-to-soil'][step1]
-    if source < int_seed and (source + extend - 1) > int_seed:
-        out1 = (int_seed - source) + (extend - 1)
 
-    else:
-        out1 = seed
-    out_step1.append(step1)
+    for key in output_dict:
+        closest = 0
+        # Step 1, search the closest match that is lower
+        for step1 in output_dict[key].keys():
+            
+            if step1 <= seed:
+                if (step1 + int(output_dict[key][step1][2]) - 1) >= last_seed:
+                    closest = step1
+        print('closest', closest)
 
-print(out_step1)
+        # Step 2, check that the step actually contains the value
+        if closest != 0:
+            print(output_dict[key][closest])
+            source, result, extend = output_dict[key][closest]
+
+            out1 = (last_seed - closest) + result
+
+        else: 
+            out1 = last_seed
+        out_step1[key] = out1
+        last_seed = key
+    print()
+    print('seed', seed)
+    for key in out_step1:
+        print(key, out_step1[key])
+
+# for key in output_dict:
+
+#     print(key, output_dict[key])# out_step1[key])
 
 
 
